@@ -8,7 +8,7 @@ import { RoutingService } from "src/app/shared/services/routing.service";
 })
 export class MovieListPageComponent {
   private movies = [];
-  private sliceNum = 1000;
+  private sliceNum = 100;
 
   public constructor(
     private moviesService: MoviesService,

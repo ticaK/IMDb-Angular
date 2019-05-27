@@ -18,7 +18,7 @@ export class RoutingService {
       case "movies":
         return "movies";
       case "singleMovie":
-        return "movies:${id}";
+        return `${id}`;
 
     }
   }
