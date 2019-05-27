@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
+  Router
 } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { RoutingService } from "../services/routing.service";
@@ -11,7 +12,8 @@ import { RoutingService } from "../services/routing.service";
 export class AuthGuard implements CanActivate {
   constructor(
     private _authService: AuthService,
-    private _routingService: RoutingService
+    private _routingService: RoutingService,
+    private _router: Router
   ) {}
 
   canActivate(
@@ -22,8 +24,8 @@ export class AuthGuard implements CanActivate {
       if (this._authService.checkIfUserIsLogIn()) {
         return resolve(true);
       }
-
-      return resolve(true);
+      this._router.navigateByUrl("login");
+      return reject(false);
     });
   }
 }
