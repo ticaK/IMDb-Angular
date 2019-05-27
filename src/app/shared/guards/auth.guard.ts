@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _authService: AuthService,
     private _routingService: RoutingService,
-    private _router: Router
   ) {}
 
   canActivate(
@@ -24,7 +23,7 @@ export class AuthGuard implements CanActivate {
       if (this._authService.checkIfUserIsLogIn()) {
         return resolve(true);
       }
-      this._router.navigateByUrl("login");
+      this._routingService.goToLoginPage();
       return reject(false);
     });
   }
