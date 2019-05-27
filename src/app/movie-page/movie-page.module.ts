@@ -19,4 +19,4 @@ import { MovieListPageComponent } from './movie-list/movie-list-page.component';
   ]
 })
 
-export class RegistrationPageModule { }
+export class MoviePageModule { }
