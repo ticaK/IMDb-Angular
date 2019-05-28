@@ -14,4 +14,8 @@ export class MoviesService {
   public getAllMovies() {
     return this.httpService.get(ENDPOINTS.MOVIES);
   }
+
+  public getSingleMovie(id) {
+    return this.httpService.get(ENDPOINTS.MOVIES + "/" + id);
+  }
 }

@@ -1,7 +1,8 @@
 import { Routes } from "@angular/router";
 import { MoviePageComponent } from "./movie-page.component";
 import { MovieListPageComponent } from "./movie-list/movie-list-page.component";
-import { SingleMovieComponent } from './single-movie/single-movie.component';
+import { SingleMovieComponent } from "./single-movie/single-movie.component";
+import { APIResolver } from "./resolver";
 
 export const moviePageRouting: Routes = [
   {
@@ -13,8 +14,9 @@ export const moviePageRouting: Routes = [
         component: MovieListPageComponent
       },
       {
-        path: ':id',
-        component: SingleMovieComponent
+        path: ":id",
+        component: SingleMovieComponent,
+        resolve: { movies: APIResolver }
       }
     ]
   }
