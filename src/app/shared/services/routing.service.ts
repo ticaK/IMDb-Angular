@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 export class RoutingService {
   public constructor(private _router: Router) {}
 
-  public getPageUlr(page) {
+  public getPageUlr(page,id=null) {
     switch (page) {
       case "":
         return "";
@@ -15,6 +15,11 @@ export class RoutingService {
         return "register";
       case "login":
         return "login";
+      case "movies":
+        return "movies";
+      case "singleMovie":
+        return `${id}`;
+
     }
   }
 
@@ -23,6 +28,6 @@ export class RoutingService {
   }
 
   public goHomePage() {
-    this._router.navigateByUrl("");
+    this._router.navigateByUrl("movies");
   }
 }
