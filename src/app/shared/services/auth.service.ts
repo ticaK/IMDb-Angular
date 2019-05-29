@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { RoutingService } from "./routing.service";
+import { Subject } from "rxjs";
 
 const ENDPOINTS = {
   LOGIN: "api/auth/login",
@@ -13,6 +14,10 @@ const ENDPOINTS = {
 })
 export class AuthService {
   public isUserLogIn = false;
+  private _userFailedRegister = new Subject();
+  public userFailedRegister$ = this._userFailedRegister.asObservable();
+  private _userFailedLogin = new Subject();
+  public userFailedLogin$ = this._userFailedLogin.asObservable();
 
   public constructor(
     private _httpService: HttpService,
@@ -57,17 +62,29 @@ export class AuthService {
   }
 
   public login(loginData) {
-    this._httpService.post(ENDPOINTS.LOGIN, loginData).then(res => {
-      this.createSession(res.data);
-      this.isUserLogIn = true;
-      this.routingService.goHomePage();
-    });
+    this._httpService
+      .post(ENDPOINTS.LOGIN, loginData)
+      .then(res => {
+        this.createSession(res.data);
+        this.isUserLogIn = true;
+        this.routingService.goHomePage();
+      })
+      .catch(error => {
+        this._userFailedLogin.next(error.response.data);
+      });
   }
 
   public register(registerData) {
-    this._httpService.post(ENDPOINTS.REGISTER, registerData).then(res => {
-      this.routingService.goToLoginPage();
-    });
+    console.log(registerData);
+
+    this._httpService
+      .post(ENDPOINTS.REGISTER, registerData)
+      .then(res => {
+        this.routingService.goToLoginPage();
+      })
+      .catch(error => {
+        this._userFailedRegister.next(error.response.data.errors);
+      });
   }
 
   public logout() {
