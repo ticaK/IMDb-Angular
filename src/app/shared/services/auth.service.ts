@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { RoutingService } from "./routing.service";
+import { Subject } from "rxjs";
 
 const ENDPOINTS = {
   LOGIN: "api/auth/login",
@@ -13,6 +14,8 @@ const ENDPOINTS = {
 })
 export class AuthService {
   public isUserLogIn = false;
+  private _userFailedRegister = new Subject();
+  public userFailedRegister$ = this._userFailedRegister.asObservable();
 
   public constructor(
     private _httpService: HttpService,
@@ -65,9 +68,16 @@ export class AuthService {
   }
 
   public register(registerData) {
-    this._httpService.post(ENDPOINTS.REGISTER, registerData).then(res => {
-      this.routingService.goToLoginPage();
-    });
+    console.log(registerData);
+
+    this._httpService
+      .post(ENDPOINTS.REGISTER, registerData)
+      .then(res => {
+        this.routingService.goToLoginPage();
+      })
+      .catch(error => {
+        this._userFailedRegister.next(error.response.data.errors);
+      });
   }
 
   public logout() {
