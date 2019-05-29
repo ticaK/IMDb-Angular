@@ -16,6 +16,8 @@ export class AuthService {
   public isUserLogIn = false;
   private _userFailedRegister = new Subject();
   public userFailedRegister$ = this._userFailedRegister.asObservable();
+  private _userFailedLogin = new Subject();
+  public userFailedLogin$ = this._userFailedLogin.asObservable();
 
   public constructor(
     private _httpService: HttpService,
@@ -60,11 +62,16 @@ export class AuthService {
   }
 
   public login(loginData) {
-    this._httpService.post(ENDPOINTS.LOGIN, loginData).then(res => {
-      this.createSession(res.data);
-      this.isUserLogIn = true;
-      this.routingService.goHomePage();
-    });
+    this._httpService
+      .post(ENDPOINTS.LOGIN, loginData)
+      .then(res => {
+        this.createSession(res.data);
+        this.isUserLogIn = true;
+        this.routingService.goHomePage();
+      })
+      .catch(error => {
+        this._userFailedLogin.next(error.response.data);
+      });
   }
 
   public register(registerData) {

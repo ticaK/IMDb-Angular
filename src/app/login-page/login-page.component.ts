@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "../shared/services/auth.service";
 
 @Component({
@@ -7,8 +7,19 @@ import { AuthService } from "../shared/services/auth.service";
 })
 export class LoginPageComponent {
   public user = {};
+  public error = {};
 
-  public constructor(private _authService: AuthService) {}
+  public constructor(
+    private _authService: AuthService,
+    private ref: ChangeDetectorRef
+  ) {}
+
+  public ngOnInit() {
+    this._authService.userFailedLogin$.subscribe(value => {
+      this.error = value;
+      this.ref.detectChanges();
+    });
+  }
 
   public login() {
     this._authService.login(this.user);
