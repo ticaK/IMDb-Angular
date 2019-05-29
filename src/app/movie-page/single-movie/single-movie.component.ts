@@ -6,7 +6,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
   templateUrl: "./single-movie.component.html"
 })
 export class SingleMovieComponent implements OnInit {
-  public movie = [];
+  public movie = {};
 
   constructor(public activeRoute: ActivatedRoute) {}
 

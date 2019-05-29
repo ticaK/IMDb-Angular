@@ -1,6 +1,5 @@
 <div
   id="register-row"
-  id="register"
   class="row justify-content-center align-items-center mt-5"
 >
   <div id="register-column" class="col-md-6">
@@ -18,6 +17,7 @@
             class="form-control"
           />
         </div>
+
         <div *ngIf="errors.name">
           <div class="alert alert-danger">{{ errors.name[0] }}</div>
         </div>

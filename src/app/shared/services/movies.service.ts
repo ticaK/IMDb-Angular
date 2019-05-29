@@ -11,11 +11,11 @@ const ENDPOINTS = {
 export class MoviesService {
   constructor(private httpService: HttpService) {}
 
-  public getAllMovies() {
-    return this.httpService.get(ENDPOINTS.MOVIES);
+  public getAllMovies(page = 1) {
+    return this.httpService.get(`${ENDPOINTS.MOVIES}?page=${page}`);
   }
 
   public getSingleMovie(id) {
-    return this.httpService.get(ENDPOINTS.MOVIES + "/" + id);
+    return this.httpService.get(`${ENDPOINTS.MOVIES}/${id}`);
   }
 }

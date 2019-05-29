@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 import { MoviesService } from "../shared/services/movies.service";
 
 @Injectable()
-export class APIResolver implements Resolve<any> {
+export class SingleMovieResolver implements Resolve<any> {
   public constructor(public movieService: MoviesService) {}
 
   resolve(

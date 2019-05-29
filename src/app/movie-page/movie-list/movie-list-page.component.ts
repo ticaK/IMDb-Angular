@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { MoviesService } from "src/app/shared/services/movies.service";
 import { RoutingService } from "src/app/shared/services/routing.service";
+import { HttpService } from "src/app/shared/services/http.service";
 
 @Component({
   selector: "movie-list-page",
@@ -9,34 +10,42 @@ import { RoutingService } from "src/app/shared/services/routing.service";
 export class MovieListPageComponent {
   private movies = [];
   private sliceNum = 100;
+  public per_page;
+  public current_page;
+  public total;
 
   public constructor(
     private moviesService: MoviesService,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private httpService: HttpService
   ) {}
 
   public ngOnInit() {
-    this.getAllMovies();
+    this.getAllMovies(this.current_page);
   }
 
-  public getAllMovies() {
+  public getAllMovies(page) {
     this.moviesService
-      .getAllMovies()
+      .getAllMovies(page)
       .then((res: any) => {
-        this.movies = res.data;
+        this.movies = res.data.data;
         this.movies.forEach(movie => (movie.clicked = false));
+        this.per_page = res.data.per_page;
+        this.current_page = res.data.current_page;
+        this.total = res.data.total;
       })
       .catch(err => {
         console.log(err);
       });
   }
-
-  public showMore(movie) {
-    movie.clicked = true;
+  
+  pageChanged(event) {
+    this.current_page = event;
+    this.getAllMovies(event);
   }
 
-  public showLess(movie) {
-    movie.clicked = false;
+  public showHide(movie) {
+    movie.clicked = !movie.clicked;
   }
 
   public showMoreButtonBool(movie) {

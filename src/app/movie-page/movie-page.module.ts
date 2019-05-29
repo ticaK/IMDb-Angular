@@ -5,16 +5,18 @@ import { SharedModule } from "../shared/modules/shared.module";
 import { MoviePageComponent } from "./movie-page.component";
 import { MovieListPageComponent } from "./movie-list/movie-list-page.component";
 import { SingleMovieComponent } from "./single-movie/single-movie.component";
-import { APIResolver } from "./resolver";
+import { SingleMovieResolver } from "./single-movie-resolver";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
-  imports: [RouterModule.forChild(moviePageRouting), SharedModule],
+  imports: [RouterModule.forChild(moviePageRouting), SharedModule, NgxPaginationModule],
   declarations: [
     MoviePageComponent,
     MovieListPageComponent,
     SingleMovieComponent
   ],
   exports: [RouterModule],
-  providers: [APIResolver]
+  providers: [SingleMovieResolver]
 })
 export class MoviePageModule {}
