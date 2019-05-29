@@ -5,13 +5,15 @@ import { HttpService } from "src/app/shared/services/http.service";
 
 @Component({
   selector: "movie-list-page",
-  templateUrl: "./movie-list-page.component.html"
+  templateUrl: "./movie-list-page.component.html",
+  styleUrls: ['./movie-list-page.component.scss']
+
 })
 export class MovieListPageComponent {
   private movies = [];
   private sliceNum = 100;
-  public per_page;
-  public current_page;
+  public perPage;
+  public currentPage;
   public total;
 
   public constructor(
@@ -21,7 +23,7 @@ export class MovieListPageComponent {
   ) {}
 
   public ngOnInit() {
-    this.getAllMovies(this.current_page);
+    this.getAllMovies(this.currentPage);
   }
 
   public getAllMovies(page) {
@@ -30,17 +32,17 @@ export class MovieListPageComponent {
       .then((res: any) => {
         this.movies = res.data.data;
         this.movies.forEach(movie => (movie.clicked = false));
-        this.per_page = res.data.per_page;
-        this.current_page = res.data.current_page;
+        this.perPage = res.data.per_page;
+        this.currentPage = res.data.current_page;
         this.total = res.data.total;
       })
       .catch(err => {
         console.log(err);
       });
   }
-  
-  pageChanged(event) {
-    this.current_page = event;
+
+  public pageChanged(event) {
+    this.currentPage = event;
     this.getAllMovies(event);
   }
 

@@ -8,7 +8,6 @@ import { SingleMovieComponent } from "./single-movie/single-movie.component";
 import { SingleMovieResolver } from "./single-movie-resolver";
 import { NgxPaginationModule } from 'ngx-pagination';
 
-
 @NgModule({
   imports: [RouterModule.forChild(moviePageRouting), SharedModule, NgxPaginationModule],
   declarations: [

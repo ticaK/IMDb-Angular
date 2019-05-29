@@ -1,0 +1,41 @@
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  color: #212529;
+}
+
+.card {
+  flex: 0 0 31.3333%;
+  margin: 1%;
+}
+
+a {
+  text-decoration: none;
+  color: #153f84;
+  &:hover {
+    color: #212529;
+  }
+}
+
+.card-title {
+  text-align: center;
+}
+
+.description {
+  color: #1a54b2;
+  margin: 3%;
+}
+
+.font-italic {
+  color: #153f84;
+  &:hover {
+    color: #212529;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+}

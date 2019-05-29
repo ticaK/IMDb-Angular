@@ -1,4 +1,7 @@
-<h3>{{ movie.title }}</h3>
-<p>{{ movie.description }}</p>
-<p>genre:{{ movie.genre.name }}</p>
-<img src="{{ movie.image_url }}" />
+<h3 class="movie-title">{{ movie.title }}</h3>
+<p class="description">{{ movie.description }}</p>
+<p class="genre">Genre: {{ movie.genre.name }}</p>
+<img src="{{ movie.image_url }}" class="movie-image" />
+<div class="back">
+  <a [routerLink]="routingService.getPageUlr('movies')">Go Back</a>
+</div>

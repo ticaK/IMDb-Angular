@@ -1,46 +1,50 @@
-<div>
-  <ul
+<div class="movies">
+  <div
+    class="card"
     *ngFor="
       let movie of movies
         | paginate
           : {
-              itemsPerPage: per_page,
-              currentPage: current_page,
+              itemsPerPage: perPage,
+              currentPage: currentPage,
               totalItems: total
             }
     "
   >
-    <li>
-      <h3>
+    <div>
+      <h3 class="card-title">
         <a [routerLink]="routingService.getPageUlr('singleMovie', movie.id)">{{
           movie.title
         }}</a>
       </h3>
-      <span>{{ movie.description.slice(1, sliceNum) }}</span>
-      <span *ngIf="showLessButtonBool(movie)">{{
-        movie.description.slice(sliceNum)
-      }}</span>
-      <button
-        *ngIf="showMoreButtonBool(movie)"
-        (click)="showHide(movie)"
-        class="btn btn-light"
-      >
-        Show more
-      </button>
-      <button
-        *ngIf="showLessButtonBool(movie)"
-        (click)="showHide(movie)"
-        class="btn btn-light"
-      >
-        Show less
-      </button>
+      <div class="description">
+        <span>{{ movie.description.slice(1, sliceNum)}}...</span>
+        <span *ngIf="showLessButtonBool(movie)">
+          {{ movie.description.slice(sliceNum) }}
+        </span>
+        <span class="font-italic"
+          *ngIf="showMoreButtonBool(movie)"
+          (click)="showHide(movie)"
+        >
+          Show more
+      </span>
+        <span class="font-italic"
+          *ngIf="showLessButtonBool(movie)"
+          (click)="showHide(movie)"
+        >
+          Show less
+    </span>
+      </div>
 
-      <img src="{{ movie.image_url }}" />
-    </li>
-  </ul>
-  <pagination-controls
+      <img src="{{ movie.image_url }}" class="card-img" />
+    </div>
+  </div>
+</div>
+<div class="pagination">
+    <pagination-controls
     (pageChange)="pageChanged($event)"
     directionLinks="true"
     autoHide="true"
   ></pagination-controls>
 </div>
+
