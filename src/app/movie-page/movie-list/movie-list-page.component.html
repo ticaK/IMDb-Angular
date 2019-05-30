@@ -1,3 +1,7 @@
+<div class="input">
+  <input (keyup)="onKey($event)" placeholder="search" />
+</div>
+
 <div class="movies">
   <div
     class="card"
@@ -18,22 +22,24 @@
         }}</a>
       </h3>
       <div class="description">
-        <span>{{ movie.description.slice(1, sliceNum)}}...</span>
+        <span>{{ movie.description.slice(1, sliceNum) }}...</span>
         <span *ngIf="showLessButtonBool(movie)">
           {{ movie.description.slice(sliceNum) }}
         </span>
-        <span class="font-italic"
+        <span
+          class="font-italic"
           *ngIf="showMoreButtonBool(movie)"
           (click)="showHide(movie)"
         >
           Show more
-      </span>
-        <span class="font-italic"
+        </span>
+        <span
+          class="font-italic"
           *ngIf="showLessButtonBool(movie)"
           (click)="showHide(movie)"
         >
           Show less
-    </span>
+        </span>
       </div>
 
       <img src="{{ movie.image_url }}" class="card-img" />
@@ -41,10 +47,9 @@
   </div>
 </div>
 <div class="pagination">
-    <pagination-controls
+  <pagination-controls
     (pageChange)="pageChanged($event)"
     directionLinks="true"
     autoHide="true"
   ></pagination-controls>
 </div>
-
