@@ -6,8 +6,7 @@ import { HttpService } from "src/app/shared/services/http.service";
 @Component({
   selector: "movie-list-page",
   templateUrl: "./movie-list-page.component.html",
-  styleUrls: ['./movie-list-page.component.scss']
-
+  styleUrls: ["./movie-list-page.component.scss"]
 })
 export class MovieListPageComponent {
   private movies = [];
@@ -15,6 +14,7 @@ export class MovieListPageComponent {
   public perPage;
   public currentPage;
   public total;
+  public searchTerm;
 
   public constructor(
     private moviesService: MoviesService,
@@ -23,18 +23,21 @@ export class MovieListPageComponent {
   ) {}
 
   public ngOnInit() {
-    this.getAllMovies(this.currentPage);
+    this.getAllMovies(this.currentPage, this.searchTerm);
+    this.moviesService.searchTerm$.subscribe(value => {
+      this.getAllMovies(this.currentPage, value);
+    });
   }
 
-  public getAllMovies(page) {
+  public getAllMovies(page, searchTerm) {
     this.moviesService
-      .getAllMovies(page)
+      .getAllMovies(page, searchTerm)
       .then((res: any) => {
-        this.movies = res.data.data;
+        this.movies = res.data.movies.data;
         this.movies.forEach(movie => (movie.clicked = false));
-        this.perPage = res.data.per_page;
-        this.currentPage = res.data.current_page;
-        this.total = res.data.total;
+        this.perPage = res.data.movies.per_page;
+        this.currentPage = res.data.movies.current_page;
+        this.total = res.data.movies.total;
       })
       .catch(err => {
         console.log(err);
@@ -43,7 +46,7 @@ export class MovieListPageComponent {
 
   public pageChanged(event) {
     this.currentPage = event;
-    this.getAllMovies(event);
+    this.getAllMovies(event, this.searchTerm);
   }
 
   public showHide(movie) {
@@ -56,5 +59,10 @@ export class MovieListPageComponent {
 
   public showLessButtonBool(movie) {
     return movie.clicked;
+  }
+
+  onKey(event: any) {
+    this.searchTerm = event.target.value;
+    this.moviesService.searchFun(this.searchTerm);
   }
 }
