@@ -14,7 +14,6 @@ export class MovieListPageComponent {
   public perPage;
   public currentPage;
   public total;
-  public searchTerm;
 
   public constructor(
     private moviesService: MoviesService,
@@ -23,8 +22,9 @@ export class MovieListPageComponent {
   ) {}
 
   public ngOnInit() {
-    this.getAllMovies(this.currentPage, this.searchTerm);
+    this.getAllMovies(this.currentPage, "");
     this.moviesService.searchTerm$.subscribe(value => {
+      this.currentPage = 1;
       this.getAllMovies(this.currentPage, value);
     });
   }
@@ -46,7 +46,7 @@ export class MovieListPageComponent {
 
   public pageChanged(event) {
     this.currentPage = event;
-    this.getAllMovies(event, this.searchTerm);
+    this.getAllMovies(event, "");
   }
 
   public showHide(movie) {
@@ -62,7 +62,6 @@ export class MovieListPageComponent {
   }
 
   onKey(event: any) {
-    this.searchTerm = event.target.value;
-    this.moviesService.searchFun(this.searchTerm);
+    this.moviesService.searchFun(event.target.value);
   }
 }
