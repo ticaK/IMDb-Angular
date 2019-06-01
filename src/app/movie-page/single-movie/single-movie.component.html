@@ -1,6 +1,11 @@
 <h3 class="movie-title">{{ movie.title }}</h3>
 <p class="description">{{ movie.description }}</p>
 <p class="genre">Genre: {{ movie.genre.name }}</p>
+<p><button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}</p>
+<p>
+  <button (click)="react(movie, 'dislikes')">Dislike</button
+  >{{ movie.dislikes }}
+</p>
 <img src="{{ movie.image_url }}" class="movie-image" />
 <div class="back">
   <a [routerLink]="routingService.getPageUlr('movies')">Go Back</a>

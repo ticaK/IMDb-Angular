@@ -34,6 +34,13 @@ export class HttpService {
       .catch(e => this.handleErrorResponse(e));
   }
 
+  public put(url, data = {}) {
+    return axios
+      .put(`${baseUrl}/${url}`, data, this.getToken())
+      .then(res => this.handleSuccessResponse(res))
+      .catch(e => this.handleErrorResponse(e));
+  }
+
   public attachHeaders(headers) {
     this.token = headers;
   }
