@@ -40,15 +40,20 @@ export class MoviesService {
   }
 
   public react(movie, reaction) {
-    var userId = JSON.parse(localStorage.getItem("user")).user_id;
+    if (movie.reacted) {
+      alert("You can only like or dislike this movie once");
+
+      return;
+    }
+    let userId = JSON.parse(localStorage.getItem("user")).user_id;
     for (let i = 0; i < movie.users.length; i++) {
       if (
-        movie.reacted ||
-        (movie.users[i].pivot.movie_id == movie.id &&
-          movie.users[i].pivot.user_id == userId)
+        movie.users[i].pivot.movie_id == movie.id &&
+        movie.users[i].pivot.user_id == userId
       ) {
         movie.reacted = true;
         alert("You can only like or dislike this movie once");
+        
         return;
       }
     }
