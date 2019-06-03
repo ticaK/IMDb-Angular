@@ -7,6 +7,7 @@
   >{{ movie.dislikes }}
 </p>
 <img src="{{ movie.image_url }}" class="movie-image" />
+<span class="text-secondary">Views: {{movie.views}} </span>
 <div class="back">
   <a [routerLink]="routingService.getPageUlr('movies')">Go Back</a>
 </div>

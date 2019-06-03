@@ -39,29 +39,20 @@ export class MoviesService {
     return this.httpService.post(`${ENDPOINTS.ADD_USER}`, data);
   }
 
-  public react(movie, reaction) {
-    if (movie.reacted) {
-      alert("You can only like or dislike this movie once");
-
-      return;
-    }
+  public isUserAlreadyReacted(movie) {
     let userId = JSON.parse(localStorage.getItem("user")).user_id;
-    for (let i = 0; i < movie.users.length; i++) {
-      if (
-        movie.users[i].pivot.movie_id == movie.id &&
-        movie.users[i].pivot.user_id == userId
-      ) {
-        movie.reacted = true;
-        alert("You can only like or dislike this movie once");
-        
-        return;
-      }
-    }
-    if (!movie.reacted) {
-      reaction == "likes" ? movie.likes++ : movie.dislikes++;
-      this.editMovie(movie);
-      this.addUser({ user_id: userId, movie_id: movie.id });
-      movie.reacted = true;
-    }
+    let filteredMovie = movie.users.filter(element => {
+      return element.pivot.user_id == userId;
+    });
+
+    return filteredMovie && filteredMovie.length;
+  }
+
+  public react(movie, reaction) {
+    let userId = JSON.parse(localStorage.getItem("user")).user_id;
+    reaction == "likes" ? movie.likes++ : movie.dislikes++;
+    return this.addUser({ user_id: userId, movie_id: movie.id }).then(res => {
+      return this.editMovie(movie);
+    });
   }
 }

@@ -21,9 +21,22 @@ export class SingleMovieComponent implements OnInit {
     this.activeRoute.data.subscribe(changeData => {
       this.movie = changeData.movies.data;
     });
+    this.viewsIncrement(this.movie);
   }
 
   public react(movie, reaction) {
-    this.moviesService.react(movie, reaction);
+    if (this.moviesService.isUserAlreadyReacted(movie)) {
+      alert("You can only like or dislike this movie once");
+
+      return;
+    }
+    this.moviesService.react(movie, reaction).then(res => {
+      this.movie = res.data;
+    });
+  }
+
+  public viewsIncrement(movie) {
+    movie.views++;
+    this.moviesService.editMovie(movie);
   }
 }

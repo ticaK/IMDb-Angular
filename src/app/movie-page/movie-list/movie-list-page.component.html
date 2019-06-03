@@ -39,12 +39,19 @@
           (click)="showHide(movie)"
         >
           Show less
-        </span><hr>
-        <p><button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}</p>
-        <p><button (click)="react(movie, 'dislikes')">Dislike</button>{{ movie.dislikes }}</p>   
+        </span>
+        <hr />
+        <p>
+          <button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}
+        </p>
+        <p>
+          <button (click)="react(movie, 'dislikes')">Dislike</button
+          >{{ movie.dislikes }}
+        </p>
       </div>
-    
+
       <img src="{{ movie.image_url }}" class="card-img" />
+      <span class="text-secondary ml-2">Views: {{ movie.views }}</span>
     </div>
   </div>
 </div>

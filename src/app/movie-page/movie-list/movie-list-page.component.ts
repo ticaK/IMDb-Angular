@@ -66,6 +66,19 @@ export class MovieListPageComponent {
   }
 
   public react(movie, reaction) {
-    this.moviesService.react(movie, reaction);
+    if (this.moviesService.isUserAlreadyReacted(movie)) {
+      alert("You can only like or dislike this movie once");
+
+      return;
+    }
+    this.moviesService.react(movie, reaction).then(res => {
+      for (let i = 0; i < this.movies.length; i++) {
+        if (this.movies[i].id == movie.id) {
+          this.movies[i] = res.data;
+        }
+      }
+    });
   }
 }
+
+
