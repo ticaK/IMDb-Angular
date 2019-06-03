@@ -33,11 +33,11 @@ export class MovieListPageComponent {
     this.moviesService
       .getAllMovies(page, searchTerm)
       .then((res: any) => {
-        this.movies = res.data.movies.data;
+        this.movies = res.data.data;
         this.movies.forEach(movie => (movie.clicked = false));
-        this.perPage = res.data.movies.per_page;
-        this.currentPage = res.data.movies.current_page;
-        this.total = res.data.movies.total;
+        this.perPage = res.data.per_page;
+        this.currentPage = res.data.current_page;
+        this.total = res.data.total;
       })
       .catch(err => {
         console.log(err);
@@ -61,7 +61,11 @@ export class MovieListPageComponent {
     return movie.clicked;
   }
 
-  onKey(event: any) {
+  public onKey(event: any) {
     this.moviesService.searchFun(event.target.value);
+  }
+
+  public react(movie, reaction) {
+    this.moviesService.react(movie, reaction);
   }
 }
