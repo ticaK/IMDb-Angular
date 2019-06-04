@@ -91,7 +91,7 @@ export class MovieListPageComponent {
   });
 }
 
-  showGenreMovies() {
+  public showGenreMovies() {
     this.getAllMovies(1, "", this.selectedGenre);
   }
 }
