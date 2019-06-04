@@ -6,7 +6,7 @@ import { debounceTime } from "rxjs/operators";
 const ENDPOINTS = {
   MOVIES: "api/movies",
   ADD_USER: "api/add",
-  GENRES:"api/genres"
+  GENRES: "api/genres"
 };
 
 @Injectable({
@@ -18,7 +18,7 @@ export class MoviesService {
 
   constructor(private httpService: HttpService) {}
 
-  public getAllMovies(page = "", searchTerm = "", genre="") {
+  public getAllMovies(page = "", searchTerm = "", genre = "") {
     return this.httpService.get(
       `${ENDPOINTS.MOVIES}?page=${page}&&title=${searchTerm}&&genre=${genre}`
     );
@@ -57,7 +57,14 @@ export class MoviesService {
     });
   }
 
-  public getAllGenres(){
-    return this.httpService.get(`${ENDPOINTS.GENRES}`)
+  public getAllGenres() {
+    return this.httpService.get(`${ENDPOINTS.GENRES}`);
+  }
+
+  public addComment(id, comment) {
+    return this.httpService.post(
+      `${ENDPOINTS.MOVIES}/${id}/addComment`,
+      comment
+    );
   }
 }
