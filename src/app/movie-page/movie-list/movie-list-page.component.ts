@@ -14,6 +14,8 @@ export class MovieListPageComponent {
   public perPage;
   public currentPage;
   public total;
+  public genres = [];
+  public selectedGenre;
 
   public constructor(
     private moviesService: MoviesService,
@@ -22,16 +24,17 @@ export class MovieListPageComponent {
   ) {}
 
   public ngOnInit() {
-    this.getAllMovies(this.currentPage, "");
+    this.getAllMovies(this.currentPage, "", "");
     this.moviesService.searchTerm$.subscribe(value => {
       this.currentPage = 1;
-      this.getAllMovies(this.currentPage, value);
+      this.getAllMovies(this.currentPage, value, "");
     });
+    this.getAllGenres();
   }
 
-  public getAllMovies(page, searchTerm) {
+  public getAllMovies(page, searchTerm, genre) {
     this.moviesService
-      .getAllMovies(page, searchTerm)
+      .getAllMovies(page, searchTerm, genre)
       .then((res: any) => {
         this.movies = res.data.data;
         this.movies.forEach(movie => (movie.clicked = false));
@@ -46,7 +49,7 @@ export class MovieListPageComponent {
 
   public pageChanged(event) {
     this.currentPage = event;
-    this.getAllMovies(event, "");
+    this.getAllMovies(event, "", this.selectedGenre);
   }
 
   public showHide(movie) {
@@ -79,6 +82,16 @@ export class MovieListPageComponent {
       }
     });
   }
+
+  public getAllGenres() {
+    this.moviesService.getAllGenres().then(res => {
+      res.data.forEach(genre => {
+        this.genres.push(genre.name);
+      });
+  });
 }
 
-
+  public showGenreMovies() {
+    this.getAllMovies(1, "", this.selectedGenre);
+  }
+}
