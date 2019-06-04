@@ -7,7 +7,35 @@
   >{{ movie.dislikes }}
 </p>
 <img src="{{ movie.image_url }}" class="movie-image" />
-<span class="text-secondary">Views: {{movie.views}} </span>
+<span class="text-secondary">Views: {{ movie.views }} </span>
+<h4>Add comment:</h4>
+<form
+  (submit)="addComment(movie.id, comment)"
+  method="post"
+  class="form"
+  ngNativeValidate
+>
+  <div class="form-group">
+    <textarea
+      class="form-control"
+      name="comment"
+      rows="5"
+      [(ngModel)]="comment.text"
+      required
+      maxlength="500"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Add</button>
+  </div>
+</form>
+
+<h4 *ngIf="movie.comments" class="text-secondary mb-3">Comments</h4>
+<div *ngFor="let comment of comments">
+  <p>{{ comment.text }}</p>
+  <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
+  <hr />
+</div>
 <div class="back">
   <a [routerLink]="routingService.getPageUlr('movies')">Go Back</a>
 </div>

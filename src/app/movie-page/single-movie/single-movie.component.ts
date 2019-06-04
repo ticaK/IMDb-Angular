@@ -10,6 +10,8 @@ import { MoviesService } from "src/app/shared/services/movies.service";
 })
 export class SingleMovieComponent implements OnInit {
   public movie = {};
+  public comments = [];
+  public comment = {text:"", user: { name: "" } };
 
   constructor(
     private moviesService: MoviesService,
@@ -20,6 +22,7 @@ export class SingleMovieComponent implements OnInit {
   public ngOnInit() {
     this.activeRoute.data.subscribe(changeData => {
       this.movie = changeData.movies.data;
+      this.comments = changeData.movies.data.comments;
     });
     this.viewsIncrement(this.movie);
   }
@@ -38,5 +41,12 @@ export class SingleMovieComponent implements OnInit {
   public viewsIncrement(movie) {
     movie.views++;
     this.moviesService.editMovie(movie);
+  }
+
+  public addComment(id, comment) {
+    this.moviesService.addComment(id, comment).then(res => {
+      this.comment.user.name = res.data.user.name;
+      this.comments.push(comment);
+    });
   }
 }
