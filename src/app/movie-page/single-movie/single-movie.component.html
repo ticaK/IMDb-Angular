@@ -8,7 +8,7 @@
 </p>
 <img src="{{ movie.image_url }}" class="movie-image" />
 <span class="text-secondary">Views: {{ movie.views }} </span>
-<h4>Add comment:</h4>
+<h4 class="text-secondary mt-3">Add comment:</h4>
 <form
   (submit)="addComment(movie.id, comment)"
   method="post"
@@ -31,11 +31,34 @@
 </form>
 
 <h4 *ngIf="movie.comments" class="text-secondary mb-3">Comments</h4>
-<div *ngFor="let comment of comments">
+<div *ngFor="let comment of comments | slice: 0:sliceNum">
   <p>{{ comment.text }}</p>
   <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
   <hr />
 </div>
+
+<div *ngIf="showLessBool(comment)">
+  <div *ngFor="let comment of comments | slice: sliceNum">
+    <p>{{ comment.text }}</p>
+    <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
+    <hr />
+  </div>
+</div>
+
+<span
+  class="text-secondary"
+  *ngIf="showMoreBool(comment)"
+  (click)="showHide(comment)"
+>
+  Show more...
+</span>
+<span
+  class="text-secondary"
+  *ngIf="showLessBool(comment)"
+  (click)="showHide(comment)"
+>
+  Show less
+</span>
 <div class="back">
   <a [routerLink]="routingService.getPageUlr('movies')">Go Back</a>
 </div>

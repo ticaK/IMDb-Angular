@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
 import { RoutingService } from "src/app/shared/services/routing.service";
 import { MoviesService } from "src/app/shared/services/movies.service";
+import { CommentStmt } from "@angular/compiler";
 
 @Component({
   selector: "single-movie",
@@ -11,7 +12,8 @@ import { MoviesService } from "src/app/shared/services/movies.service";
 export class SingleMovieComponent implements OnInit {
   public movie = {};
   public comments = [];
-  public comment = {text:"", user: { name: "" } };
+  public comment = { text: "", user: { name: "" } };
+  public sliceNum = 2;
 
   constructor(
     private moviesService: MoviesService,
@@ -48,5 +50,17 @@ export class SingleMovieComponent implements OnInit {
       this.comment.user.name = res.data.user.name;
       this.comments.push(comment);
     });
+  }
+
+  public showMoreBool(comment) {
+    return !comment.clicked && this.comments.length > this.sliceNum;
+  }
+
+  public showLessBool(comment) {
+    return comment.clicked;
+  }
+
+  public showHide(comment) {
+    comment.clicked = !comment.clicked;
   }
 }
