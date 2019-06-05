@@ -1,64 +1,80 @@
-<h3 class="movie-title">{{ movie.title }}</h3>
-<p class="description">{{ movie.description }}</p>
-<p class="genre">Genre: {{ movie.genre.name }}</p>
-<p><button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}</p>
-<p>
-  <button (click)="react(movie, 'dislikes')">Dislike</button
-  >{{ movie.dislikes }}
-</p>
-<img src="{{ movie.image_url }}" class="movie-image" />
-<span class="text-secondary">Views: {{ movie.views }} </span>
-<h4 class="text-secondary mt-3">Add comment:</h4>
-<form
-  (submit)="addComment(movie.id, comment)"
-  method="post"
-  class="form"
-  ngNativeValidate
->
-  <div class="form-group">
-    <textarea
-      class="form-control"
-      name="comment"
-      rows="5"
-      [(ngModel)]="comment.text"
-      required
-      maxlength="500"
-    ></textarea>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-success" type="submit">Add</button>
-  </div>
-</form>
+<div class="row">
+  <div class="col">
+    <h3 class="movie-title">{{ movie.title }}</h3>
+    <p class="description">{{ movie.description }}</p>
+    <p class="genre">Genre: {{ movie.genre.name }}</p>
+    <p>
+      <button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}
+    </p>
+    <p>
+      <button (click)="react(movie, 'dislikes')">Dislike</button
+      >{{ movie.dislikes }}
+    </p>
+    <img src="{{ movie.image_url }}" class="movie-image" />
+    <span class="text-secondary">Views: {{ movie.views }} </span>
+    <h4 class="text-secondary mt-3">Add comment:</h4>
+    <form
+      (submit)="addComment(movie.id, comment)"
+      method="post"
+      class="form"
+      ngNativeValidate
+    >
+      <div class="form-group">
+        <textarea
+          class="form-control"
+          name="comment"
+          rows="5"
+          [(ngModel)]="comment.text"
+          required
+          maxlength="500"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success" type="submit">Add</button>
+      </div>
+    </form>
 
-<h4 *ngIf="movie.comments" class="text-secondary mb-3">Comments</h4>
-<div *ngFor="let comment of comments | slice: 0:sliceNum">
-  <p>{{ comment.text }}</p>
-  <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
-  <hr />
-</div>
+    <h4 *ngIf="movie.comments" class="text-secondary mb-3">Comments</h4>
+    <div *ngFor="let comment of comments | slice: 0:sliceNum">
+      <p>{{ comment.text }}</p>
+      <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
+      <hr />
+    </div>
 
-<div *ngIf="showLessBool(comment)">
-  <div *ngFor="let comment of comments | slice: sliceNum">
-    <p>{{ comment.text }}</p>
-    <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
-    <hr />
+    <div *ngIf="showLessBool(comment)">
+      <div *ngFor="let comment of comments | slice: sliceNum">
+        <p>{{ comment.text }}</p>
+        <p class="font-italic text-sm-left">By {{ comment.user.name }}</p>
+        <hr />
+      </div>
+    </div>
+
+    <span
+      class="text-secondary"
+      *ngIf="showMoreBool(comment)"
+      (click)="showHide(comment)"
+    >
+      Show more...
+    </span>
+    <span
+      class="text-secondary"
+      *ngIf="showLessBool(comment)"
+      (click)="showHide(comment)"
+    >
+      Show less
+    </span>
+    <div class="back">
+      <a [routerLink]="routingService.getPageUrl('movies')">Go Back</a>
+    </div>
   </div>
-</div>
-
-<span
-  class="text-secondary"
-  *ngIf="showMoreBool(comment)"
-  (click)="showHide(comment)"
->
-  Show more...
-</span>
-<span
-  class="text-secondary"
-  *ngIf="showLessBool(comment)"
-  (click)="showHide(comment)"
->
-  Show less
-</span>
-<div class="back">
-  <a [routerLink]="routingService.getPageUrl('movies')">Go Back</a>
+  <div class="col-sm-3">
+    <h5 class="related-title">Related movies</h5>
+    <ol>
+      <li *ngFor="let movie of related">
+        <a (click)="routingService.goSingleMovie(movie.id)">
+          {{ movie.title }}
+        </a>
+      </li>
+    </ol>
+  </div>
 </div>

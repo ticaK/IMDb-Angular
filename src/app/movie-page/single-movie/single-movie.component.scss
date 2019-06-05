@@ -25,3 +25,19 @@
 .back {
   margin: 3rem 0;
 }
+
+ol {
+  background: #eff5ff;
+}
+
+li {
+  margin: 2rem 0;
+  color:blue;
+  &:hover {
+    color: #212529;
+  }
+}
+
+.related-title {
+  margin:2.5rem 0;
+}

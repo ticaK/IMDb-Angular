@@ -29,4 +29,8 @@ export class RoutingService {
   public goHomePage() {
     this._router.navigateByUrl("movies");
   }
+
+  public goSingleMovie(id) {
+    this._router.navigateByUrl("movies/"+id);
+  }
 }
