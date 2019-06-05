@@ -6,14 +6,20 @@ import { MoviePageComponent } from "./movie-page.component";
 import { MovieListPageComponent } from "./movie-list/movie-list-page.component";
 import { SingleMovieComponent } from "./single-movie/single-movie.component";
 import { SingleMovieResolver } from "./single-movie-resolver";
-import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from "ngx-pagination";
+import { SideBarComponent } from "../side-bar/side-bar.component";
 
 @NgModule({
-  imports: [RouterModule.forChild(moviePageRouting), SharedModule, NgxPaginationModule],
+  imports: [
+    RouterModule.forChild(moviePageRouting),
+    SharedModule,
+    NgxPaginationModule
+  ],
   declarations: [
     MoviePageComponent,
     MovieListPageComponent,
-    SingleMovieComponent
+    SingleMovieComponent,
+    SideBarComponent
   ],
   exports: [RouterModule],
   providers: [SingleMovieResolver]

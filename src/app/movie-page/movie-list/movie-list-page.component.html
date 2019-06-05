@@ -1,75 +1,87 @@
 <h1 class="text-center text-dark m-5">Welcome to my IMDb</h1>
-<div class="row ml-5 mr-5 mb-4">
+<div class="row">
   <div class="col">
-    <input (keyup)="onKey($event)" placeholder="search" class="form-control" />
-  </div>
-  <div class="col">
-    <select
-      class="custom-select"
-      width="50"
-      name="genre"
-      [(ngModel)]="selectedGenre"
-      (change)="showGenreMovies()"
-    >
-      <option [ngValue]="null" [disabled]="true">Choose a genre</option>
-      <option *ngFor="let genre of genres" [value]="genre">
-        {{ genre }} 
-      </option><br/>
-    </select>
-  </div>
-</div>
-
-<div class="movies">
-  <div
-    class="card"
-    *ngFor="
-      let movie of movies
-        | paginate
-          : {
-              itemsPerPage: perPage,
-              currentPage: currentPage,
-              totalItems: total
-            }
-    "
-  >
-    <div>
-      <h3 class="card-title">
-        <a [routerLink]="routingService.getPageUlr('singleMovie', movie.id)">{{
-          movie.title
-        }}</a>
-      </h3>
-      <div class="description">
-        <span>{{ movie.description.slice(1, sliceNum) }}...</span>
-        <span *ngIf="showLessButtonBool(movie)">
-          {{ movie.description.slice(sliceNum) }}
-        </span>
-        <span
-          class="font-italic"
-          *ngIf="showMoreButtonBool(movie)"
-          (click)="showHide(movie)"
-        >
-          Show more
-        </span>
-        <span
-          class="font-italic"
-          *ngIf="showLessButtonBool(movie)"
-          (click)="showHide(movie)"
-        >
-          Show less
-        </span>
-        <hr />
-        <p>
-          <button (click)="react(movie, 'likes')">Like</button>{{ movie.likes }}
-        </p>
-        <p>
-          <button (click)="react(movie, 'dislikes')">Dislike</button
-          >{{ movie.dislikes }}
-        </p>
+    <div class="row ml-5 mr-5 mb-4">
+      <div class="col">
+        <input
+          (keyup)="onKey($event)"
+          placeholder="search"
+          class="form-control"
+        />
       </div>
-
-      <img src="{{ movie.image_url }}" class="card-img" />
-      <span class="text-secondary ml-2">Views: {{ movie.views }}</span>
+      <div class="col">
+        <select
+          class="custom-select"
+          width="50"
+          name="genre"
+          [(ngModel)]="selectedGenre"
+          (change)="showGenreMovies()"
+        >
+          <option [ngValue]="null" [disabled]="true">Choose a genre</option>
+          <option *ngFor="let genre of genres" [value]="genre">
+            {{ genre }}
+          </option><br />
+        </select>
+      </div>
     </div>
+
+    <div class="movies">
+      <div
+        class="card"
+        *ngFor="
+          let movie of movies
+            | paginate
+              : {
+                  itemsPerPage: perPage,
+                  currentPage: currentPage,
+                  totalItems: total
+                }
+        "
+      >
+        <div>
+          <h3 class="card-title">
+            <a [routerLink]="routingService.getPageUrl('singleMovie', movie.id)">
+              {{ movie.title }}
+            </a>
+          </h3>
+          <div class="description">
+            <span>{{ movie.description.slice(1, sliceNum) }}...</span>
+            <span *ngIf="showLessButtonBool(movie)">
+              {{ movie.description.slice(sliceNum) }}
+            </span>
+            <span
+              class="font-italic"
+              *ngIf="showMoreButtonBool(movie)"
+              (click)="showHide(movie)"
+            >
+              Show more
+            </span>
+            <span
+              class="font-italic"
+              *ngIf="showLessButtonBool(movie)"
+              (click)="showHide(movie)"
+            >
+              Show less
+            </span>
+            <hr />
+            <p>
+              <button (click)="react(movie, 'likes')">Like</button
+              >{{ movie.likes }}
+            </p>
+            <p>
+              <button (click)="react(movie, 'dislikes')">Dislike</button
+              >{{ movie.dislikes }}
+            </p>
+          </div>
+
+          <img src="{{ movie.image_url }}" class="card-img" />
+          <span class="text-secondary ml-2">Views: {{ movie.views }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <side-bar></side-bar>
   </div>
 </div>
 <div class="pagination">

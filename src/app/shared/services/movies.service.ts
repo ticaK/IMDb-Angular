@@ -6,7 +6,8 @@ import { debounceTime } from "rxjs/operators";
 const ENDPOINTS = {
   MOVIES: "api/movies",
   ADD_USER: "api/add",
-  GENRES: "api/genres"
+  GENRES: "api/genres",
+  POPULAR: "api/popular"
 };
 
 @Injectable({
@@ -66,5 +67,9 @@ export class MoviesService {
       `${ENDPOINTS.MOVIES}/${id}/addComment`,
       comment
     );
+  }
+
+  public getPopular() {
+    return this.httpService.get(`${ENDPOINTS.POPULAR}`);
   }
 }

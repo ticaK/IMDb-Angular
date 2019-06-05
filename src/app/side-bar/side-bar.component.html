@@ -1,0 +1,8 @@
+<h5>Top 10 popular movies</h5>
+<ol>
+  <li *ngFor="let movie of popular">
+    <a [routerLink]="routingService.getPageUrl('singleMovie', movie.id)">
+      {{ movie.title }}
+    </a>
+  </li>
+</ol>
