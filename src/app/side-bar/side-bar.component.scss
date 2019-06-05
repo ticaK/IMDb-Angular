@@ -1,0 +1,14 @@
+ol {
+  background: #eff5ff;
+}
+
+li {
+  margin: 2rem 0;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    color: #212529;
+  }
+}
