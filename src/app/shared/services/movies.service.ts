@@ -7,7 +7,8 @@ const ENDPOINTS = {
   MOVIES: "api/movies",
   ADD_USER: "api/add",
   GENRES: "api/genres",
-  POPULAR: "api/popular"
+  POPULAR: "api/popular",
+  WATCHLISTS: "api/watchlists"
 };
 
 @Injectable({
@@ -72,8 +73,53 @@ export class MoviesService {
   public getPopular() {
     return this.httpService.get(`${ENDPOINTS.POPULAR}`);
   }
-  
-  public getRelated(id){
+
+  public getRelated(id) {
     return this.httpService.get(`${ENDPOINTS.MOVIES}/${id}/related`);
+  }
+
+  public getWatchList() {
+    return this.httpService.get(`${ENDPOINTS.WATCHLISTS}`);
+  }
+
+  public addToWatchList(movie) {
+    return this.httpService.post(`${ENDPOINTS.WATCHLISTS}`, {
+      movie_id: movie.id
+    });
+  }
+
+  public markAsWatched(id) {
+    return this.httpService.put(`${ENDPOINTS.WATCHLISTS}/${id}`, {
+      watched: true
+    });
+  }
+
+  public removeFromWatchList(id) {
+    return this.httpService.delete(`${ENDPOINTS.WATCHLISTS}/${id}`);
+  }
+
+  public isOnWatchList(movie) {
+    let userId = JSON.parse(localStorage.getItem("user")).user_id;
+    for (let i = 0; i < movie.watch_users.length; i++) {
+      if (movie.watch_users[i].pivot.user_id == userId) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public isWatched(movie) {
+    let userId = JSON.parse(localStorage.getItem("user")).user_id;
+    for (let i = 0; i < movie.watch_users.length; i++) {
+      if (
+        this.isOnWatchList(movie) &&
+        movie.watch_users[i].pivot.watched == 1
+      ) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 }

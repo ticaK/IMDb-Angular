@@ -19,6 +19,8 @@ export class RoutingService {
         return "movies";
       case "singleMovie":
         return `${id}`;
+      case "watchList":
+        return "watchList";
     }
   }
 

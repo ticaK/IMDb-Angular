@@ -1,0 +1,23 @@
+<div>
+  <h4 class="mt-4 mb-4 text-center text-secondary">My Watch List</h4>
+  <table class="table table-striped">
+    <tr *ngFor="let movie of watchList">
+      <td *ngIf="!movie.pivot.watched"><a (click)="routingService.goSingleMovie(movie.id)">
+          {{ movie.title }}
+        </a></td>
+      <td *ngIf="!movie.pivot.watched">
+        <button (click)="markAsWatched(movie.id)" class="btn btn-outline-dark">
+          Mark as watched
+        </button>
+      </td>
+      <td *ngIf="!movie.pivot.watched">
+        <button
+          (click)="removeFromWatchList(movie.id)"
+          class="btn btn-outline-danger"
+        >
+          Remove from watch list
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

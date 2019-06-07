@@ -16,7 +16,8 @@ export class MovieListPageComponent {
   public total;
   public genres = [];
   public selectedGenre;
-
+  public watchList = [];
+  
   public constructor(
     private moviesService: MoviesService,
     private routingService: RoutingService,
@@ -88,10 +89,23 @@ export class MovieListPageComponent {
       res.data.forEach(genre => {
         this.genres.push(genre.name);
       });
-  });
-}
+    });
+  }
 
   public showGenreMovies() {
     this.getAllMovies(1, "", this.selectedGenre);
+  }
+
+  public addToWatchList(movie) {
+    movie.added = true;
+    this.moviesService.addToWatchList(movie);
+  }
+
+  public isOnWatchList(movie) {
+    return this.moviesService.isOnWatchList(movie);
+  }
+
+  public isWatched(movie) {
+    return this.moviesService.isWatched(movie);
   }
 }

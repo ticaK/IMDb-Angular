@@ -15,6 +15,11 @@ export let appRoutes: Routes = [
     canActivate: [GuestGuard]
   },
   {
+    path: "watchList",
+    loadChildren: "./watch-list/watch-list.module#WatchListModule",
+    canActivate: [AuthGuard]
+  },
+  {
     path: "register",
     loadChildren:
       "./registration-page/registration-page.module#RegistrationPageModule",
