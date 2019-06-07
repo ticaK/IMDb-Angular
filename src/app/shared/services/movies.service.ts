@@ -100,26 +100,17 @@ export class MoviesService {
 
   public isOnWatchList(movie) {
     let userId = JSON.parse(localStorage.getItem("user")).user_id;
-    for (let i = 0; i < movie.watch_users.length; i++) {
-      if (movie.watch_users[i].pivot.user_id == userId) {
-        return true;
-      }
-    }
 
-    return false;
+    return (
+      movie.watch_users &&
+      movie.watch_users.find(element => element.pivot.user_id == userId)
+    );
   }
 
   public isWatched(movie) {
-    let userId = JSON.parse(localStorage.getItem("user")).user_id;
-    for (let i = 0; i < movie.watch_users.length; i++) {
-      if (
-        this.isOnWatchList(movie) &&
-        movie.watch_users[i].pivot.watched == 1
-      ) {
-        return true;
-      }
-    }
-    
-    return false;
+    return (
+      this.isOnWatchList(movie) &&
+      movie.watch_users.find(element => element.pivot.watched == 1)
+    );
   }
 }

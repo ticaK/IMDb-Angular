@@ -1,6 +1,6 @@
 <div>
   <h4 class="mt-4 mb-4 text-center text-secondary">My Watch List</h4>
-  <table class="table table-striped">
+  <table class="table table-hover">
     <tr *ngFor="let movie of watchList">
       <td *ngIf="!movie.pivot.watched"><a (click)="routingService.goSingleMovie(movie.id)">
           {{ movie.title }}
