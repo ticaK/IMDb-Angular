@@ -6,6 +6,12 @@
       href="#"
       >Movies</a
     >
+    <a
+      class="navbar-item"
+      *ngIf="authService.checkIfUserIsLogIn()"
+      [routerLink]="routingService.getPageUrl('watchList')"
+      >My Watch List</a
+    >
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
         <li class="nav-item" *ngIf="!authService.checkIfUserIsLogIn()">

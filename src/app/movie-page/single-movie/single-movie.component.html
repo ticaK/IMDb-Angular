@@ -1,6 +1,17 @@
 <div class="row">
   <div class="col">
     <h3 class="movie-title">{{ movie.title }}</h3>
+    <button
+      *ngIf="!isOnWatchList(movie) && !movie.added"
+      (click)="addToWatchList(movie)"
+      class="btn btn-outline-secondary btn-sm mb-3"
+    >
+      Add to watch list
+    </button>
+    <p *ngIf="isWatched(movie)" class="text-light bg-dark text-center">
+      You've watched this movie
+    </p>
+
     <p class="description">{{ movie.description }}</p>
     <p class="genre">Genre: {{ movie.genre.name }}</p>
     <p>

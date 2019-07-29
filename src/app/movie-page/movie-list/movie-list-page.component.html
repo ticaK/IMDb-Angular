@@ -44,6 +44,19 @@
               {{ movie.title }}
             </a>
           </h3>
+
+          <p *ngIf="isWatched(movie)" class="text-light bg-dark text-center">
+            You've watched this movie
+          </p>
+
+          <button
+            *ngIf="!isOnWatchList(movie) && !movie.added"
+            (click)="addToWatchList(movie)"
+            class="btn btn-outline-secondary btn-sm ml-2"
+          >
+            Add to watch list
+          </button>
+
           <div class="description">
             <span>{{ movie.description.slice(1, sliceNum) }}...</span>
             <span *ngIf="showLessButtonBool(movie)">

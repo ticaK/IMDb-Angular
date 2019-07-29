@@ -77,4 +77,17 @@ export class SingleMovieComponent implements OnInit {
         console.log(err);
       });
   }
+
+  public addToWatchList(movie) {
+    movie.added = true;
+    this.moviesService.addToWatchList(movie);
+  }
+
+  public isOnWatchList(movie) {
+    return this.moviesService.isOnWatchList(movie);
+  }
+
+  public isWatched(movie) {
+    return this.moviesService.isWatched(movie);
+  }
 }

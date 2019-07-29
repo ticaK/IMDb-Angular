@@ -41,6 +41,13 @@ export class HttpService {
       .catch(e => this.handleErrorResponse(e));
   }
 
+  public delete(url) {
+    return axios
+      .delete(`${baseUrl}/${url}`, this.getToken())
+      .then(res => this.handleSuccessResponse(res))
+      .catch(e => this.handleErrorResponse(e));
+  }
+
   public attachHeaders(headers) {
     this.token = headers;
   }
