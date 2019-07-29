@@ -72,4 +72,8 @@ export class MoviesService {
   public getPopular() {
     return this.httpService.get(`${ENDPOINTS.POPULAR}`);
   }
+  
+  public getRelated(id){
+    return this.httpService.get(`${ENDPOINTS.MOVIES}/${id}/related`);
+  }
 }

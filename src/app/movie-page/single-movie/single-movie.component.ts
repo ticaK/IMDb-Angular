@@ -14,6 +14,8 @@ export class SingleMovieComponent implements OnInit {
   public comments = [];
   public comment = { text: "", user: { name: "" } };
   public sliceNum = 2;
+  public id = this.activeRoute.snapshot.paramMap.get("id");
+  public related = [];
 
   constructor(
     private moviesService: MoviesService,
@@ -25,6 +27,7 @@ export class SingleMovieComponent implements OnInit {
     this.activeRoute.data.subscribe(changeData => {
       this.movie = changeData.movies.data;
       this.comments = changeData.movies.data.comments;
+      this.getRelated(changeData.movies.data.id);
     });
     this.viewsIncrement(this.movie);
   }
@@ -62,5 +65,16 @@ export class SingleMovieComponent implements OnInit {
 
   public showHide(comment) {
     comment.clicked = !comment.clicked;
+  }
+
+  public getRelated(id) {
+    this.moviesService
+      .getRelated(id)
+      .then(res => {
+        this.related = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
