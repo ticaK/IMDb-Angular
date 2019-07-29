@@ -113,4 +113,5 @@ export class MoviesService {
       movie.watch_users.find(element => element.pivot.watched == 1)
     );
   }
+
 }
