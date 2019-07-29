@@ -75,8 +75,6 @@ export class AuthService {
   }
 
   public register(registerData) {
-    console.log(registerData);
-
     this._httpService
       .post(ENDPOINTS.REGISTER, registerData)
       .then(res => {

@@ -58,7 +58,7 @@
           </button>
 
           <div class="description">
-            <span>{{ movie.description.slice(1, sliceNum) }}...</span>
+            <span>{{ movie.description.slice(1, sliceNum) }}</span>
             <span *ngIf="showLessButtonBool(movie)">
               {{ movie.description.slice(sliceNum) }}
             </span>

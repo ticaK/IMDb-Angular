@@ -52,6 +52,7 @@ export class SingleMovieComponent implements OnInit {
     this.moviesService.addComment(id, comment).then(res => {
       this.comment.user.name = res.data.user.name;
       this.comments.push(comment);
+      this.comment = { text: "", user: { name: "" } };
     });
   }
 
