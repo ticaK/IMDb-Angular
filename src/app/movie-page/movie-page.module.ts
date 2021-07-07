@@ -4,6 +4,7 @@ import { moviePageRouting } from './movie-page.routing';
 import { SharedModule } from '../shared/modules/shared.module';
 import { MoviePageComponent } from './movie-page.component';
 import { MovieListPageComponent } from './movie-list/movie-list-page.component';
+import { SingleMovieComponent } from './single-movie/single-movie.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { MovieListPageComponent } from './movie-list/movie-list-page.component';
   ],
   declarations: [
     MoviePageComponent,
-    MovieListPageComponent
+    MovieListPageComponent,
+    SingleMovieComponent
   ],
   exports: [
     RouterModule

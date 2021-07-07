@@ -5,7 +5,7 @@ import { GuestGuard } from "./shared/guards/guest.guard";
 
 export let appRoutes: Routes = [
   {
-    path: "",
+    path: "movies",
     loadChildren: "./movie-page/movie-page.module#MoviePageModule",
     canActivate: [AuthGuard]
   },
@@ -22,7 +22,7 @@ export let appRoutes: Routes = [
   },
   {
     path: "**",
-    redirectTo: "",
+    redirectTo: "movies",
     pathMatch: "full"
   }
 ];
